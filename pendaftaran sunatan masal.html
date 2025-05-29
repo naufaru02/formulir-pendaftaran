@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pendaftaran Sunatan Masal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+  }
+
+  .container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2.5rem 3rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #2575fc;
+    letter-spacing: 1px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  fieldset {
+    border: 2px solid #2575fc;
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    background: #f7f9ff;
+  }
+
+  legend {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #6a11cb;
+    padding: 0 0.5rem;
+    margin-left: 10px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  input[type=number],
+  input[type=date],
+  select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1.8px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=tel]:focus,
+  input[type=number]:focus,
+  input[type=date]:focus,
+  select:focus {
+    outline: none;
+    border-color: #2575fc;
+    box-shadow: 0 0 8px rgba(37,117,252,0.3);
+  }
+
+  .btn-submit {
+    background: #6a11cb;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s ease;
+    align-self: center;
+    width: 100%;
+  }
+
+  .btn-submit:hover {
+    background: #2575fc;
+  }
+
+  .thank-you {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.3rem;
+    color: #2575fc;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pendaftaran Sunatan Masal</h1>
+    <form id="registrationForm" novalidate>
+      <fieldset>
+        <legend>Identitas Orang Tua</legend>
+        <label for="parentName">Nama Orang Tua <span style="color:#e03131">*</span></label>
+        <input type="text" id="parentName" name="parentName" placeholder="Nama lengkap orang tua" required />
+
+        <label for="parentPhone">Nomor Telepon <span style="color:#e03131">*</span></label>
+        <input type="tel" id="parentPhone" name="parentPhone" placeholder="0812xxxxxxx" pattern="[0-9]{8,15}" required />
+
+        <label for="parentJob">Pekerjaan <span style="color:#e03131">*</span></label>
+        <input type="text" id="parentJob" name="parentJob" placeholder="Pekerjaan orang tua" required />
+
+        <label for="parentAddress">Alamat Lengkap <span style="color:#e03131">*</span></label>
+        <input type="text" id="parentAddress" name="parentAddress" placeholder="Alamat rumah lengkap" required />
+      </fieldset>
+
+      <fieldset>
+        <legend>Identitas Anak</legend>
+        <label for="childName">Nama Anak <span style="color:#e03131">*</span></label>
+        <input type="text" id="childName" name="childName" placeholder="Nama lengkap anak" required />
+
+        <label for="childBirth">Tanggal Lahir Anak <span style="color:#e03131">*</span></label>
+        <input type="date" id="childBirth" name="childBirth" required max="" />
+
+        <label for="childAge">Umur Anak (Tahun) <span style="color:#e03131">*</span></label>
+        <input type="number" id="childAge" name="childAge" min="1" max="15" placeholder="Umur anak" required />
+      </fieldset>
+
+      <button type="submit" class="btn-submit">Daftar Sekarang</button>
+    </form>
+    <div class="thank-you" id="thankYouMessage" style="display:none;">
+      Terima kasih sudah mendaftar! Kami akan menghubungi Anda segera.
+    </div>
+  </div>
+
+<script>
+  // Set max date to today for childBirth input
+  const childBirthInput = document.getElementById('childBirth');
+  childBirthInput.max = new Date().toISOString().split('T')[0];
+
+  const form = document.getElementById('registrationForm');
+  const thankYouMessage = document.getElementById('thankYouMessage');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Simple form validation
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Show thank you message and hide form
+    form.style.display = 'none';
+    thankYouMessage.style.display = 'block';
+
+    // Optional: You can collect form data here or send it to server if backend available
+    // Example:
+    // const formData = new FormData(form);
+    // console.log(Object.fromEntries(formData.entries()));
+  });
+</script>
+</body>
+</html>
+
